@@ -1,6 +1,12 @@
 let deck = [];
 let players = [];
-//let round = 0;
+let rounds = {
+    amount: 0,
+    isEmpachado: false,
+    cardThrows: 0,
+    firstRoundWinner: null
+};
+let cardThrows = 0;
 
 function createGame() {
     let mode = prompt("Qual será seu modo de jogo? 1v1 ou 2v2?")
@@ -122,12 +128,17 @@ function createOnePlayer(index) {
 
 function clearRoundPoints() {
     players.map(player => player.roundPoints = 0)
+    rounds.cardThrows = 0;
+    rounds.isEmpachado = false;
 }
 
-function setRoundPoints(player) {
-    if (player.roundPoints + 1 === 2) {
+function setRoundPoints(player, rounds) {
+    rounds.firstRoundWinner = player
+    if (rounds.isEmpachado) {
         player.points++
-
+        clearRoundPoints()
+    } else if (player.roundPoints + 1 === 2) {
+        player.points++
         clearRoundPoints();
     } else {
         player.roundPoints++
@@ -140,6 +151,7 @@ function round() {
     cardStrengthComparator(player1[0], player2[0])
     cardStrengthComparator(player1[1], player2[1])
     cardStrengthComparator(player1[2], player2[2])
+    rounds.amount++
 }
 
 function game() {
@@ -154,112 +166,116 @@ function cardStrengthComparator(playerOneCard, playerTwoCard) {
         if (playerOneCard.number != playerTwoCard.number) {
             cardComparator(playerOneCard, playerTwoCard);
         } else {
-           // console.log("Empachou")
+            if (rounds.cardThrows > 2) {
+                rounds.isEmpachado = true;
+            } else {
+                debugger
+            }
         }
     } else {
         if (playerOneCard.isManilha && !playerTwoCard.isManilha) {
-            setRoundPoints(players[0])
+            setRoundPoints(players[0], rounds)
         } else if (playerTwoCard.isManilha && !playerOneCard.isManilha) {
-            setRoundPoints(players[1])
+            setRoundPoints(players[1], rounds)
         } else if (playerOneCard.number != playerTwoCard.number) {
             cardComparator(playerOneCard, playerTwoCard);
         } else {
             suitComparator(playerOneCard, playerTwoCard);
         }
     }
-
+    rounds.cardThrows++
     createDeckAndShuffleAndDeal();
 }
 
 
 function suitComparator(playerOneCard, playerTwoCard) {
     if (playerOneCard.suit === "Clubs") {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.suit === "Clubs") {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.suit === "Hearts") {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.suit === "Hearts") {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.suit === "Spades") {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.suit === "Spades") {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.suit === "Diamonds") {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.suit === "Diamonds") {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     }
 }
 
 function cardComparator(playerOneCard, playerTwoCard) {
     if (playerOneCard.number === 3) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 3) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 2) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 2) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 1) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 1) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 1) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 1) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 12) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 12) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 12) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 11) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 11) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 10) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 10) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 7) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 7) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 6) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 6) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 5) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 5) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     } else if (playerTwoCard.number === 4) {
-        setRoundPoints(players[1]);
+        setRoundPoints(players[1], rounds);
     } else if (playerOneCard.number === 4) {
-        setRoundPoints(players[0]);
+        setRoundPoints(players[0], rounds);
     }
 }
 
-// alert(`Jogador 1, as suas cartas são 
-//     \n ${player1.map(el => el.number)} 
+// alert(`Jogador 1, as suas cartas são
+//     \n ${player1.map(el => el.number)}
 //     \n ${player1.map(el => el.suit)}
 //     \n ${player1.map(el => el.isManilha)}`)
 
-//     alert(`Jogador 2, as suas cartas são 
-//     \n ${player2.map(el => el.number)} 
+//     alert(`Jogador 2, as suas cartas são
+//     \n ${player2.map(el => el.number)}
 //     \n ${player2.map(el => el.suit)}
 //     \n ${player2.map(el => el.isManilha)}`)
 
 //     alert("O jogador 1 começa")
-//     let firstCard = +prompt(`Jogador 1, as suas cartas são 
-//     \n ${player1.map(el => el.number)} 
+//     let firstCard = +prompt(`Jogador 1, as suas cartas são
+//     \n ${player1.map(el => el.number)}
 //     \n ${player1.map(el => el.suit)}
 //     \n ${player1.map(el => el.isManilha)}`)
 
-//     let firstCardPlayer2 = +prompt(`O Jogador 1 jogou ${player1[firstCard].number}, as suas cartas são 
-//     \n ${player2.map(el => el.number)} 
+//     let firstCardPlayer2 = +prompt(`O Jogador 1 jogou ${player1[firstCard].number}, as suas cartas são
+//     \n ${player2.map(el => el.number)}
 //     \n ${player2.map(el => el.suit)}
 //     \n ${player2.map(el => el.isManilha)}`)
 
@@ -270,13 +286,13 @@ function cardComparator(playerOneCard, playerTwoCard) {
 //     debugger
 //     if (players.filter(el => el.roundPoints > 0 && el.name === 'Player 1').length >= 1) {
 //         alert("O jogador 1 levou e é o próximo a jogar")
-//         let secondCard = +prompt(`Jogador 1, as suas cartas são 
-//         \n ${player1.map(el => el.number)} 
+//         let secondCard = +prompt(`Jogador 1, as suas cartas são
+//         \n ${player1.map(el => el.number)}
 //         \n ${player1.map(el => el.suit)}
 //         \n ${player1.map(el => el.isManilha)}`)
 
-//         let secondCardPlayer2 = +prompt(`O Jogador 1 jogou ${player1[secondCard].number}, as suas cartas são 
-//         \n ${player2.map(el => el.number)} 
+//         let secondCardPlayer2 = +prompt(`O Jogador 1 jogou ${player1[secondCard].number}, as suas cartas são
+//         \n ${player2.map(el => el.number)}
 //         \n ${player2.map(el => el.suit)}
 //         \n ${player2.map(el => el.isManilha)}`)
 
@@ -286,13 +302,13 @@ function cardComparator(playerOneCard, playerTwoCard) {
 
 //     } else {
 //         alert("O jogador 2 levou e é o próximo a jogar")
-//         let secondCardPlayer2 = +prompt(`Jogador 2, as suas cartas são 
-//         \n ${player2.map(el => el.number)} 
+//         let secondCardPlayer2 = +prompt(`Jogador 2, as suas cartas são
+//         \n ${player2.map(el => el.number)}
 //         \n ${player2.map(el => el.suit)}
 //         \n ${player2.map(el => el.isManilha)}`)
 
-//         let secondCard = +prompt(`O Jogador 1 jogou ${player2[secondCardPlayer2].number}, as suas cartas são 
-//         \n ${player1.map(el => el.number)} 
+//         let secondCard = +prompt(`O Jogador 1 jogou ${player2[secondCardPlayer2].number}, as suas cartas são
+//         \n ${player1.map(el => el.number)}
 //         \n ${player1.map(el => el.suit)}
 //         \n ${player1.map(el => el.isManilha)}`)
 
