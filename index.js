@@ -130,10 +130,13 @@ function clearRoundPoints() {
     players.map(player => player.roundPoints = 0)
     rounds.cardThrows = 0;
     rounds.isEmpachado = false;
+    rounds.firstRoundWinner === null;
 }
 
 function setRoundPoints(player, rounds) {
-    rounds.firstRoundWinner = player
+    if (!rounds.isEmpachado && rounds.firstRoundWinner === null) {
+        rounds.firstRoundWinner = player.name
+    }
     if (rounds.isEmpachado) {
         player.points++
         clearRoundPoints()
@@ -166,10 +169,10 @@ function cardStrengthComparator(playerOneCard, playerTwoCard) {
         if (playerOneCard.number != playerTwoCard.number) {
             cardComparator(playerOneCard, playerTwoCard);
         } else {
-            if (rounds.cardThrows > 2) {
-                rounds.isEmpachado = true;
+            if (rounds.isEmpachado) {
+                players.filter(player => player.name === rounds.firstRoundWinner).map(points => points)
             } else {
-                debugger
+                rounds.isEmpachado = true;
             }
         }
     } else {
