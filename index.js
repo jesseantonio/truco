@@ -4,7 +4,10 @@ let rounds = {
     amount: 0,
     isEmpachado: false,
     cardThrows: 0,
-    firstRoundWinner: null
+    bo3: {
+        firstRoundWinner: null,
+        roundWinner: null
+    },
 };
 let cardThrows = 0;
 
@@ -130,18 +133,20 @@ function clearRoundPoints() {
     players.map(player => player.roundPoints = 0)
     rounds.cardThrows = 0;
     rounds.isEmpachado = false;
-    rounds.firstRoundWinner === null;
+    rounds.bo3.firstRoundWinner = null;
 }
 
 function setRoundPoints(player, rounds) {
-    if (!rounds.isEmpachado && rounds.firstRoundWinner === null) {
-        rounds.firstRoundWinner = player.name
+    if (!rounds.isEmpachado && rounds.bo3.firstRoundWinner === null) {
+        rounds.bo3.firstRoundWinner = player.name
     }
     if (rounds.isEmpachado) {
         player.points++
+        rounds.bo3.roundWinner = player.name;
         clearRoundPoints()
     } else if (player.roundPoints + 1 === 2) {
         player.points++
+        rounds.bo3.roundWinner = player.name;
         clearRoundPoints();
     } else {
         player.roundPoints++
@@ -151,12 +156,17 @@ function setRoundPoints(player, rounds) {
 function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
-    cardStrengthComparator(player1[0], player2[0])
-    cardStrengthComparator(player1[1], player2[1])
-    cardStrengthComparator(player1[2], player2[2])
+    let i = 0;
+    debugger
+    while (rounds.bo3.roundWinner === null) {
+        cardStrengthComparator(player1[i], player2[i])
+        i++
+    }
+    i = 0;
+
+    rounds.bo3.roundWinner = null;
     rounds.amount++
 }
-
 function game() {
     while (!players.map(el => el.points).some(el => el >= 12)) {
         round()
@@ -170,7 +180,10 @@ function cardStrengthComparator(playerOneCard, playerTwoCard) {
             cardComparator(playerOneCard, playerTwoCard);
         } else {
             if (rounds.isEmpachado) {
-                players.filter(player => player.name === rounds.firstRoundWinner).map(points => points)
+                let playerWinner = players.filter(player => player.name === rounds.bo3.firstRoundWinner);
+                debugger
+                playerWinner.map(points => points++)
+                rounds.bo3.firstRoundWinner = playerWinner.map(name => name);
             } else {
                 rounds.isEmpachado = true;
             }
@@ -319,3 +332,4 @@ function cardComparator(playerOneCard, playerTwoCard) {
 //         delete player1[secondCard]
 //         delete player2[secondCardPlayer2]
 //     }
+
