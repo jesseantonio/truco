@@ -2,7 +2,7 @@ let deck = [];
 let players = [];
 let rounds = {
     amount: 0,
-    isEmpachado: false,
+    isDraw: false,
     cardThrows: 0,
     bo3: {
         firstRoundWinner: null,
@@ -66,7 +66,7 @@ function createDeck() {
             return {
                 number: card.number,
                 suit: suit,
-                isManilha: false,
+                isJoker: false,
                 player: {
                     name: undefined
                 }
@@ -88,22 +88,22 @@ function dealTheCards() {
         }
         last = deck.length - 1 - i;
     }
-    setManilha(last)
+    setJoker(last)
 }
 
-function setManilha(lastCard) {
-    let manilhaIndex = lastCard - 1;
-    let manilha = deck[manilhaIndex].number;
+function setJoker(lastCard) {
+    let jokerIndex = lastCard - 1;
+    let joker = deck[jokerIndex].number;
 
-    if (manilha === 7) {
-        manilha = 10;
-    } else if (manilha === 12) {
-        manilha = 1;
+    if (joker === 7) {
+        joker = 10;
+    } else if (joker === 12) {
+        joker = 1;
     } else {
-        manilha = manilha + 1;
+        joker = joker + 1;
     }
 
-    deck.filter(card => card.number === manilha).map(card => card.isManilha = true)
+    deck.filter(card => card.number === joker).map(card => card.isJoker = true)
 }
 
 function createPlayers(mode) {
@@ -132,15 +132,15 @@ function createOnePlayer(index) {
 function clearRoundPoints() {
     players.map(player => player.roundPoints = 0)
     rounds.cardThrows = 0;
-    rounds.isEmpachado = false;
+    rounds.isDraw = false;
     rounds.bo3.firstRoundWinner = null;
 }
 
 function setRoundPoints(player, rounds) {
-    if (!rounds.isEmpachado && rounds.bo3.firstRoundWinner === null) {
+    if (!rounds.isDraw && rounds.bo3.firstRoundWinner === null) {
         rounds.bo3.firstRoundWinner = player.name
     }
-    if (rounds.isEmpachado) {
+    if (rounds.isDraw) {
         player.points++
         rounds.bo3.roundWinner = player.name;
         clearRoundPoints()
@@ -157,13 +157,16 @@ function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
     let i = 0;
-    debugger
     while (rounds.bo3.roundWinner === null) {
-        cardStrengthComparator(player1[i], player2[i])
-        i++
+        if (i > 2) {
+            players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
+            rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
+        } else {
+            cardStrengthComparator(player1[i], player2[i])
+            i++
+        }
     }
     i = 0;
-
     rounds.bo3.roundWinner = null;
     rounds.amount++
 }
@@ -175,23 +178,23 @@ function game() {
 
 // 3, 2, 1, 12, 11, 10, 7, 6, 5, 4
 function cardStrengthComparator(playerOneCard, playerTwoCard) {
-    if (!playerOneCard.isManilha && !playerTwoCard.isManilha) {
+    if (!playerOneCard.isJoker && !playerTwoCard.isJoker) {
         if (playerOneCard.number != playerTwoCard.number) {
             cardComparator(playerOneCard, playerTwoCard);
         } else {
-            if (rounds.isEmpachado) {
+            if (rounds.isDraw) {
                 let playerWinner = players.filter(player => player.name === rounds.bo3.firstRoundWinner);
                 debugger
                 playerWinner.map(points => points++)
                 rounds.bo3.firstRoundWinner = playerWinner.map(name => name);
             } else {
-                rounds.isEmpachado = true;
+                rounds.isDraw = true;
             }
         }
     } else {
-        if (playerOneCard.isManilha && !playerTwoCard.isManilha) {
+        if (playerOneCard.isJoker && !playerTwoCard.isJoker) {
             setRoundPoints(players[0], rounds)
-        } else if (playerTwoCard.isManilha && !playerOneCard.isManilha) {
+        } else if (playerTwoCard.isJoker && !playerOneCard.isJoker) {
             setRoundPoints(players[1], rounds)
         } else if (playerOneCard.number != playerTwoCard.number) {
             cardComparator(playerOneCard, playerTwoCard);
