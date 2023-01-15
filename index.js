@@ -3,6 +3,10 @@ let players = [];
 let rounds = {
     amount: 0,
     isDraw: false,
+    truco: {
+        isTrucado: false,
+        value: null
+    },
     cardThrows: 0,
     bo3: {
         firstRoundWinner: null,
@@ -157,6 +161,8 @@ function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
     let i = 0;
+    createCards(player1, player2);
+    debugger
     while (rounds.bo3.roundWinner === null) {
         if (i > 2) {
             players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
@@ -170,13 +176,139 @@ function round() {
     rounds.bo3.roundWinner = null;
     rounds.amount++
 }
+function createCards(player1, player2) {
+    for (let j = 0; j < 3; j++) {
+        let player1Card = document.createElement('div');
+        player1Card.setAttribute('class', `carta`);
+
+        let player2Card = document.createElement('div');
+        player2Card.setAttribute('class', `carta`)
+
+        setCardBackground(player1, j, player1Card);
+        setCardBackground(player2, j, player2Card);
+
+        document.getElementById(`player1`).appendChild(player1Card);
+        document.getElementById(`player2`).appendChild(player2Card);
+    }
+}
+
+function setCardBackground(player, index, playerCard) {
+    if (player.map(number => number)[0 + index].number === 1) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 2) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 3) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 4) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 5) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 6) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 7) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 10) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 11) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    } else if (player.map(number => number)[0 + index].number === 12) {
+        if (player.map(number => number)[0 + index].suit === "Clubs") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Hearts") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else if (player.map(number => number)[0 + index].suit === "Spades") {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        } else {
+            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+        }
+    }
+}
+
 function game() {
     while (!players.map(el => el.points).some(el => el >= 12)) {
         round()
     }
 }
 
-// 3, 2, 1, 12, 11, 10, 7, 6, 5, 4
+/**
+ * Ordem de força das cartas:
+ *  
+ * 3, 2, 1, 12, 11, 10, 7, 6, 5, 4
+ * @param {*} playerOneCard - Carta do jogador 1
+ * @param {*} playerTwoCard - Carta do jogador 2
+ */
 function cardStrengthComparator(playerOneCard, playerTwoCard) {
     if (!playerOneCard.isJoker && !playerTwoCard.isJoker) {
         if (playerOneCard.number != playerTwoCard.number) {
@@ -184,7 +316,6 @@ function cardStrengthComparator(playerOneCard, playerTwoCard) {
         } else {
             if (rounds.isDraw) {
                 let playerWinner = players.filter(player => player.name === rounds.bo3.firstRoundWinner);
-                debugger
                 playerWinner.map(points => points++)
                 rounds.bo3.firstRoundWinner = playerWinner.map(name => name);
             } else {
@@ -278,3 +409,6 @@ function cardComparator(playerOneCard, playerTwoCard) {
 }
 
 
+function sayTruco(params) {
+    // impl
+}
