@@ -195,103 +195,103 @@ function createCards(player1, player2) {
 function setCardBackground(player, index, playerCard) {
     if (player.map(number => number)[0 + index].number === 1) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/1depaus.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 2) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 3) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 4) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 5) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 6) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 7) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 10) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 11) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     } else if (player.map(number => number)[0 + index].number === 12) {
         if (player.map(number => number)[0 + index].suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else if (player.map(number => number)[0 + index].suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./cartas-truco/1depaus.png')";
+            playerCard.style.backgroundImage = "url('./assets/verso.png')";
         }
     }
 }
