@@ -5,7 +5,7 @@ let rounds = {
     isDraw: false,
     truco: {
         isTrucado: false,
-        value: null
+        value: 0
     },
     cardThrows: 0,
     bo3: {
@@ -138,6 +138,9 @@ function clearRoundPoints() {
     rounds.cardThrows = 0;
     rounds.isDraw = false;
     rounds.bo3.firstRoundWinner = null;
+    rounds.truco.isTrucado = false;
+    rounds.truco.value = 0;
+
 }
 
 function setRoundPoints(player, rounds) {
@@ -409,6 +412,11 @@ function cardComparator(playerOneCard, playerTwoCard) {
 }
 
 
-function sayTruco(params) {
+function sayTruco() {
+    rounds.truco.isTrucado = true;
+    rounds.truco.value = rounds.truco.value + 3;
+}
+
+function escape() {
     // impl
 }
