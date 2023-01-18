@@ -164,9 +164,9 @@ function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
     let i = 0;
-    createCards(player1, player2);
-    debugger
     while (rounds.bo3.roundWinner === null) {
+        createCards(player1, player2);
+        debugger
         if (i > 2) {
             players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
             rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;

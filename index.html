@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div onclick="createGame()" style="width: 50vh; text-align: center;">
+    <div onclick="createGame()">
         <p style="font-size: 32px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
             JOGAR
         </p>
@@ -20,10 +20,20 @@
         <p style="font-size: 32px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
             PEDIR TRUCO!
         </p>
-
     </div>
-    <div id="player1"></div>
-    <div id="player2"></div>
+    <div class="container">
+        <div class="table">
+            <div class="player2">
+                <div id="player2">
+                </div>
+            </div>
+            <div class="player1">
+                <div id="player1">
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 
 </html>
