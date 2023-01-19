@@ -166,7 +166,6 @@ function round() {
     let i = 0;
     while (rounds.bo3.roundWinner === null) {
         createCards(player1, player2);
-        debugger
         if (i > 2) {
             players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
             rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
@@ -183,10 +182,18 @@ function createCards(player1, player2) {
     for (let j = 0; j < 3; j++) {
         let player1Card = document.createElement('div');
         player1Card.setAttribute('class', `carta`);
-
+        player1Card.setAttribute('id', `${j}`)
+        player1Card.onclick = function (item) {
+            console.log(item.target.id)
+        }
+        
         let player2Card = document.createElement('div');
         player2Card.setAttribute('class', `carta`)
-
+        player2Card.setAttribute('id', `${j}`)
+        debugger
+        player2Card.onclick = function (item) {
+            console.log(item.target.id)
+        }
         setCardBackground(player1, j, player1Card);
         setCardBackground(player2, j, player2Card);
 
