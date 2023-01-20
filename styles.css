@@ -15,6 +15,7 @@
   position: relative;
   float: left;
   margin: 10px;
+  border-radius: 2px;
 }
 
 .container {
@@ -36,6 +37,7 @@
   border-style: solid;
   border-color: #964b00;
   border-width: 15px;
+  border-radius: 10px;
 }
 
 .player1 {
