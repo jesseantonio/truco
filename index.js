@@ -162,7 +162,7 @@ function setRoundPoints(player, rounds) {
     }
 }
 
-function round() {
+async function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
     let i = 0;
@@ -173,17 +173,26 @@ function round() {
 
         alert('Vez do jogador 2')
         console.log(player2ChosenCard)
-        // if (player1ChosenCard != null && player2ChosenCard != null) {
-            if (i > 2) {
-                players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
-                rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
-            } else {
-                console.log(player1[player1ChosenCard]);
-                debugger
-                cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
-                i++
+        const move = await player2Move(player2ChosenCard);
 
-            }
+        debugger
+        console.log(move)
+        while (player2ChosenCard === null) {
+            debugger
+            break
+        }
+        debugger
+        // if (player1ChosenCard != null && player2ChosenCard != null) {
+            // if (i > 2) {
+            //     players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
+            //     rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
+            // } else {
+            //     console.log(player1[player1ChosenCard]);
+            //     debugger
+            //     cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
+            //     i++
+
+            // }
         // }
 
         console.log("aksjdasjk")
@@ -195,6 +204,16 @@ function round() {
     rounds.bo3.roundWinner = null;
     rounds.amount++
 }
+
+async function player2Move(move) {
+    if (move === null) {
+        console.log("Jogue")
+        return;
+    }
+
+    return true;
+}
+
 function createCards(player1, player2) {
     for (let j = 0; j < 3; j++) {
         let player1Card = document.createElement('div');
