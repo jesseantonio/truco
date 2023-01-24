@@ -165,53 +165,53 @@ function setRoundPoints(player, rounds) {
 async function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
-    let i = 0;
     createCards(player1, player2);
-    while (rounds.bo3.roundWinner === null) {
-        alert('Vez do jogador 1')
-        console.log(player1ChosenCard)
-
-        alert('Vez do jogador 2')
-        console.log(player2ChosenCard)
-        const move = await player2Move(player2ChosenCard);
-
-        debugger
-        console.log(move)
-        while (player2ChosenCard === null) {
-            debugger
-            break
+    if (rounds.bo3.roundWinner === null) {
+        if (rounds.amount % 2 === 0) {
+            alert('Vez do jogador 1')
+        } else {
+            alert('Vez do jogador 1')
         }
-        debugger
-        // if (player1ChosenCard != null && player2ChosenCard != null) {
-            // if (i > 2) {
-            //     players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
-            //     rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
-            // } else {
-            //     console.log(player1[player1ChosenCard]);
-            //     debugger
-            //     cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
-            //     i++
 
-            // }
+        // const move = await player2Move(player2ChosenCard);
+        debugger
+        // console.log(move)
+        // if (player1ChosenCard != null && player2ChosenCard != null) {
+        // if (i > 2) {
+        //     players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
+        //     rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
+        // } else {
+        //     console.log(player1[player1ChosenCard]);
+        //     debugger
+        //     cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
+        //     i++
+
+        // }
         // }
 
-        console.log("aksjdasjk")
+        rounds.bo3.roundWinner = null;
+        rounds.amount++
     }
-    debugger
-    console.log(player1ChosenCard)
-    console.log(player2ChosenCard)
-    i = 0;
-    rounds.bo3.roundWinner = null;
-    rounds.amount++
 }
 
 async function player2Move(move) {
     if (move === null) {
+        1
         console.log("Jogue")
         return;
     }
 
     return true;
+}
+
+function battle(card1, card2, cardDiv) {
+    let player1 = deck.filter(el => el.player.name === "Player 1");
+    let player2 = deck.filter(el => el.player.name === "Player 2");
+    moveCard(player1[parseInt(card1)], cardDiv)
+    if (card1 != null && card2 != null) {
+        debugger
+        cardStrengthComparator(player1[parseInt(card1)], player2[parseInt(card2)])
+    }
 }
 
 function createCards(player1, player2) {
@@ -221,6 +221,8 @@ function createCards(player1, player2) {
         player1Card.setAttribute('id', `${j}`)
         player1Card.onclick = function (item) {
             player1ChosenCard = item.target.id;
+            debugger
+            battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
         let player2Card = document.createElement('div');
@@ -228,6 +230,7 @@ function createCards(player1, player2) {
         player2Card.setAttribute('id', `${j}`)
         player2Card.onclick = function (item) {
             player2ChosenCard = item.target.id;
+            battle(player1ChosenCard, player2ChosenCard);
         }
 
         setCardBackground(player1, j, player1Card);
@@ -344,8 +347,10 @@ function setCardBackground(player, index, playerCard) {
 }
 
 function game() {
-    while (!players.map(el => el.points).some(el => el >= 12)) {
+    if (!players.map(el => el.points).some(el => el >= 12)) {
         round()
+    } else {
+        alert("O jogo acabou")
     }
 }
 
@@ -467,4 +472,12 @@ function sayTruco() {
 
 function escape() {
     // impl
+}
+
+function moveCard(card, div) {
+    if (card.player.name === "Player 1") {
+        div.classList += " player1Move "
+    } else { 
+        div.classList += " player2Move "
+    }
 }

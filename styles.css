@@ -49,3 +49,13 @@
   margin-bottom: auto;
   background: #080;
 }
+
+.player1Move {
+  margin-bottom: 200px;
+  animation: ease-in;
+}
+
+.player2Move {
+  margin-top: auto;
+  animation: ease-in;
+}
