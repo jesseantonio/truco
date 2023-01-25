@@ -41,11 +41,19 @@
 }
 
 .player1 {
+  display: flex;
   margin-top: auto;
   background: #080;
 }
 
-.player2 {
+#player1 {
+  display: flex;
+  margin-top: auto;
+  background: #080;
+}
+
+#player2 {
+  display: flex;
   margin-bottom: auto;
   background: #080;
 }
