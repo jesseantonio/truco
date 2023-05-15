@@ -173,22 +173,6 @@ async function round() {
             alert('Vez do jogador 1')
         }
 
-        // const move = await player2Move(player2ChosenCard);
-        debugger
-        // console.log(move)
-        // if (player1ChosenCard != null && player2ChosenCard != null) {
-        // if (i > 2) {
-        //     players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
-        //     rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
-        // } else {
-        //     console.log(player1[player1ChosenCard]);
-        //     debugger
-        //     cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
-        //     i++
-
-        // }
-        // }
-
         rounds.bo3.roundWinner = null;
         rounds.amount++
     }
@@ -196,7 +180,6 @@ async function round() {
 
 async function player2Move(move) {
     if (move === null) {
-        1
         console.log("Jogue")
         return;
     }
@@ -207,10 +190,12 @@ async function player2Move(move) {
 function battle(card1, card2, cardDiv) {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
-    moveCard(player1[parseInt(card1)], cardDiv)
     if (card1 != null && card2 != null) {
-        debugger
-        cardStrengthComparator(player1[parseInt(card1)], player2[parseInt(card2)])
+        cardStrengthComparator(player1[parseInt(card1.id)], player2[parseInt(card2.id)])
+        player1ChosenCard.item.remove();
+        player2ChosenCard.item.remove();
+        card1 = null;
+        card2 = null;
     }
 }
 
@@ -220,8 +205,10 @@ function createCards(player1, player2) {
         player1Card.setAttribute('class', `carta`);
         player1Card.setAttribute('id', `${j}`)
         player1Card.onclick = function (item) {
-            player1ChosenCard = item.target.id;
-            debugger
+            player1ChosenCard = {
+                id: item.target.id,
+                item: item.target
+            }
             battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
@@ -229,8 +216,11 @@ function createCards(player1, player2) {
         player2Card.setAttribute('class', `carta`)
         player2Card.setAttribute('id', `${j}`)
         player2Card.onclick = function (item) {
-            player2ChosenCard = item.target.id;
-            battle(player1ChosenCard, player2ChosenCard);
+            player2ChosenCard = {
+                id: item.target.id,
+                item: item.target
+            }
+            battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
         setCardBackground(player1, j, player1Card);
@@ -247,7 +237,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/1depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/1decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -257,7 +247,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/2depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/2decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -267,7 +257,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/3depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/3decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -277,7 +267,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/4depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/4decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -287,7 +277,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/5depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/5decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -297,7 +287,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/6depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/6decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -307,7 +297,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/7depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/7decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -317,7 +307,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/10depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/10decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/10deespada.png')";
         } else {
@@ -327,7 +317,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/11depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/11decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -337,7 +327,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/12depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/12decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
