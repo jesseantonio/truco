@@ -16,8 +16,9 @@ let rounds = {
 let cardThrows = 0;
 let player1ChosenCard = null;
 let player2ChosenCard = null;
+const playGameButtonElem = document.getElementById('playGame')
 
-function createGame() {
+async function createGame() {
     let mode = prompt("Qual será seu modo de jogo? 1v1 ou 2v2?")
     createPlayers(mode)
     createDeckAndShuffleAndDeal();
@@ -162,7 +163,23 @@ function setRoundPoints(player, rounds) {
     }
 }
 
-function round() {
+function waitPlayerAction(player) {
+    return new Promise((resolve, reject) => {
+        const playerCard = document.getElementById(`${player}`);
+        debugger
+        let playerChosenCard = null;
+
+        function onClickHandler(event) {
+            playerChosenCard = event.target.id;
+            playerCard.removeEventListener('click', onClickHandler);
+            resolve(playerChosenCard);
+        }
+
+        playerCard.addEventListener('click', onClickHandler);
+    });
+}
+
+async function round() {
     let player1 = deck.filter(el => el.player.name === "Player 1");
     let player2 = deck.filter(el => el.player.name === "Player 2");
     let i = 0;
@@ -172,18 +189,34 @@ function round() {
         console.log(player1ChosenCard)
 
         alert('Vez do jogador 2')
-        console.log(player2ChosenCard)
-        // if (player1ChosenCard != null && player2ChosenCard != null) {
-            if (i > 2) {
-                players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
-                rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
-            } else {
-                console.log(player1[player1ChosenCard]);
-                debugger
-                cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
-                i++
+        debugger
+        if (i > 2) {
+            players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
+            rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
+        } else {
+            while (player1[player1ChosenCard] == undefined) {
+                try {
+                    const result = await waitPlayerAction("player1");
+                    console.log(result)
+                } catch (error) {
+                    console.log("error")
+                }
+            }
+            while (player2[player2ChosenCard] == undefined) {
+                try {
+                    const result = await waitPlayerAction("player2");
+                    console.log(result)
+                } catch (error) {
+                    console.log("error")
+                }
 
             }
+            console.log(player1[player1ChosenCard]);
+            cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
+            // debugger
+            i++
+
+        }
         // }
 
         console.log("aksjdasjk")
@@ -324,10 +357,17 @@ function setCardBackground(player, index, playerCard) {
     }
 }
 
-function game() {
-    while (!players.map(el => el.points).some(el => el >= 12)) {
-        round()
+async function game() {
+    const checkWinCondition = () => players.map(el => el.points).some(el => el >= 12);
+
+    async function playTurn() {
+        if (!checkWinCondition()) {
+            await round();
+            await playTurn();
+        }
     }
+
+    await playTurn();
 }
 
 /**
