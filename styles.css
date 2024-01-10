@@ -50,12 +50,30 @@ body, html {
   border-radius: 10px; */
 }
 
-.player1 {
+/* .player1 {
+  display: flex;
   margin-top: auto;
   background: #080;
 }
 
-.player2 {
+#player1 {
+  display: flex;
+  margin-top: auto;
+  background: #080;
+}
+
+#player2 {
+  display: flex;
   margin-bottom: auto;
   background: #080;
 }
+
+.player1Move {
+  margin-bottom: 200px;
+  animation: ease-in;
+}
+
+.player2Move {
+  margin-top: auto;
+  animation: ease-in;
+} */

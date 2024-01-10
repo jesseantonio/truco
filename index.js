@@ -166,7 +166,6 @@ function setRoundPoints(player, rounds) {
 function waitPlayerAction(player) {
     return new Promise((resolve, reject) => {
         const playerCard = document.getElementById(`${player}`);
-        debugger
         let playerChosenCard = null;
 
         function onClickHandler(event) {
@@ -185,63 +184,105 @@ async function round() {
     let i = 0;
     createCards(player1, player2);
     while (rounds.bo3.roundWinner === null) {
-        alert('Vez do jogador 1')
-        console.log(player1ChosenCard)
-
-        alert('Vez do jogador 2')
-        debugger
         if (i > 2) {
             players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
             rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
         } else {
-            while (player1[player1ChosenCard] == undefined) {
-                try {
-                    const result = await waitPlayerAction("player1");
-                    console.log(result)
-                } catch (error) {
-                    console.log("error")
+            debugger
+            if (rounds.bo3.firstRoundWinner === null) {
+                if (rounds.amount % 2 === 0) {
+                    alert('Vez do jogador 1')
+                    while (player1ChosenCard == undefined) {
+                        await play(player1ChosenCard, "player1");
+                    }
+                    alert('Vez do jogador 2')
+                    while (player2ChosenCard == undefined) {
+                        await play(player2ChosenCard, "player2");
+                    }
+                } else {
+                    alert('Vez do jogador 2')
+                    while (player2ChosenCard == undefined) {
+                        await play(player2ChosenCard, "player2");
+                    }
+                    alert('Vez do jogador 1')
+                    while (player1ChosenCard == undefined) {
+                        await play(player1ChosenCard, "player1");
+                    }
+                }
+            } else {
+                let lastWinner = rounds.bo3.firstRoundWinner;
+                if (lastWinner == "Player 1") {
+                    alert('Vez do jogador 1')
+                    while (player1ChosenCard == undefined) {
+                        await play(player1ChosenCard, "player1");
+                    }
+                    alert('Vez do jogador 2')
+                    while (player2ChosenCard == undefined) {
+                        await play(player2ChosenCard, "player2");
+                    }
+                } else {
+                    alert('Vez do jogador 2')
+                    while (player2ChosenCard == undefined) {
+                        await play(player2ChosenCard, "player2");
+                    }
+                    alert('Vez do jogador 1')
+                    while (player1ChosenCard == undefined) {
+                        await play(player1ChosenCard, "player1");
+                    }
                 }
             }
-            while (player2[player2ChosenCard] == undefined) {
-                try {
-                    const result = await waitPlayerAction("player2");
-                    console.log(result)
-                } catch (error) {
-                    console.log("error")
-                }
 
-            }
-            console.log(player1[player1ChosenCard]);
-            cardStrengthComparator(player1[player1ChosenCard], player2[player2ChosenCard])
-            // debugger
+            cardStrengthComparator(player1[player1ChosenCard.id], player2[player2ChosenCard.id])
             i++
-
+            rounds.amount++
         }
-        // }
-
-        console.log("aksjdasjk")
     }
-    debugger
-    console.log(player1ChosenCard)
-    console.log(player2ChosenCard)
-    i = 0;
-    rounds.bo3.roundWinner = null;
-    rounds.amount++
 }
+
+
+
+async function play(player, name) {
+    try {
+        await waitPlayerAction(`${name}`);
+    } catch (error) {
+        console.log("error");
+    }
+}
+
+function battle(card1, card2, cardDiv) {
+    let player1 = deck.filter(el => el.player.name === "Player 1");
+    let player2 = deck.filter(el => el.player.name === "Player 2");
+    if (card1 != null && card2 != null) {
+        cardStrengthComparator(player1[parseInt(card1.id)], player2[parseInt(card2.id)])
+        player1ChosenCard.item.remove();
+        player2ChosenCard.item.remove();
+        card1 = null;
+        card2 = null;
+    }
+}
+
 function createCards(player1, player2) {
     for (let j = 0; j < 3; j++) {
         let player1Card = document.createElement('div');
         player1Card.setAttribute('class', `carta`);
         player1Card.setAttribute('id', `${j}`)
         player1Card.onclick = function (item) {
-            player1ChosenCard = item.target.id;
+            player1ChosenCard = {
+                id: item.target.id,
+                item: item.target
+            }
+            //battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
         let player2Card = document.createElement('div');
         player2Card.setAttribute('class', `carta`)
         player2Card.setAttribute('id', `${j}`)
         player2Card.onclick = function (item) {
-            player2ChosenCard = item.target.id;
+            player2ChosenCard = {
+                id: item.target.id,
+                item: item.target
+            }
+            //battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
         setCardBackground(player1, j, player1Card);
@@ -258,7 +299,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/1depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/1decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -268,7 +309,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/2depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/2decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -278,7 +319,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/3depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/3decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -288,7 +329,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/4depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/4decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -298,7 +339,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/5depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/5decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -308,7 +349,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/6depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/6decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -318,7 +359,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/7depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/7decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -328,7 +369,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/10depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/10decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/10deespada.png')";
         } else {
@@ -338,7 +379,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/11depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/11decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -348,7 +389,7 @@ function setCardBackground(player, index, playerCard) {
         if (playerCardWithIndex.suit === "Clubs") {
             playerCard.style.backgroundImage = "url('./assets/12depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/verso.png')";
+            playerCard.style.backgroundImage = "url('./assets/12decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
             playerCard.style.backgroundImage = "url('./assets/verso.png')";
         } else {
@@ -482,8 +523,9 @@ function cardComparator(playerOneCard, playerTwoCard) {
 
 
 function sayTruco() {
-    rounds.truco.isTrucado = true;
-    rounds.truco.value = rounds.truco.value + 3;
+    debugger
+    //rounds.truco.isTrucado = true;
+    //rounds.truco.value = rounds.truco.value + 3;
 }
 
 function escape() {
