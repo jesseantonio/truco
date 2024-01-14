@@ -24,7 +24,21 @@ body, html {
   box-sizing: content-box;
   position: relative;
   float: left;
-  margin: 10px;
+  margin: 2px;
+  border-radius: 10px;
+}
+
+.other-cards {
+  background-image: url("./assets/verso3.png") !important;
+  height: 64px;
+  width: 34px;
+  background-size: cover;
+  padding: 15px;
+  box-sizing: content-box;
+  position: relative;
+  float: left;
+  margin: 2px;
+  margin-right: -20px;
   border-radius: 10px;
 }
 
@@ -43,37 +57,10 @@ body, html {
   min-height: 65vh;
   padding-left: 25%;
   padding-right: 25%;
-  height: auto;
   border-style: solid;
   border-color: #964b00;
   border-width: 15px;
   border-radius: 10px; */
 }
 
-/* .player1 {
-  display: flex;
-  margin-top: auto;
-  background: #080;
-}
 
-#player1 {
-  display: flex;
-  margin-top: auto;
-  background: #080;
-}
-
-#player2 {
-  display: flex;
-  margin-bottom: auto;
-  background: #080;
-}
-
-.player1Move {
-  margin-bottom: 200px;
-  animation: ease-in;
-}
-
-.player2Move {
-  margin-top: auto;
-  animation: ease-in;
-} */
