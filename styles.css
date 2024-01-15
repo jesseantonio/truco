@@ -1,30 +1,21 @@
-body, html {
-  height: 100%;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  padding: 0;
   overflow: hidden;
 }
 
-.diagonal-lines {
-  width: 100%;
-  height: 100%;
-  background:
-    linear-gradient(to bottom right, transparent calc(50% - 1px), #042c0c calc(50% - 1px), #042c0c calc(50% + 1px), transparent calc(50% + 1px)),
-    linear-gradient(to top right, transparent calc(50% - 1px), #042c0c calc(50% - 1px), #042c0c calc(50% + 1px), transparent calc(50% + 1px));
-  background-color: #0c380c;
-  background-size: 25px 25px; /* Define o tamanho do espaçamento entre as linhas */
-}
-
-.carta {
+.card {
   background-color: white;
   height: 170px;
   width: 100px;
   background-size: cover;
   padding: 15px;
   box-sizing: content-box;
-  position: relative;
-  float: left;
-  margin: 2px;
+  position: absolute;
+  margin: 22px;
   border-radius: 10px;
 }
 
@@ -42,25 +33,55 @@ body, html {
   border-radius: 10px;
 }
 
-.container {
-  display: flex;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
+.card.bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.table {
-  /* display: flex;
-  flex-direction: column;
-  background: #080;
-  text-align: center;
-  min-height: 65vh;
-  padding-left: 25%;
-  padding-right: 25%;
-  border-style: solid;
-  border-color: #964b00;
-  border-width: 15px;
-  border-radius: 10px; */
+.card.top {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
+.card.animateCard {
+  animation: moveCard 2s forwards;
+}
 
+@keyframes moveCard {
+  0% {
+      transform: rotate(0deg) translate(0, 0);
+  }
+
+  100% {
+      transform: rotate(0deg) translate(0, -200px);
+  }
+}
+
+.diagonal-lines {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), #042c0c calc(50% - 1px), #042c0c calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(to top right, transparent calc(50% - 1px), #042c0c calc(50% - 1px), #042c0c calc(50% + 1px), transparent calc(50% + 1px));
+  background-color: #0c380c;
+  background-size: 25px 25px; 
+}
+
+.hidden {
+  display: none;
+}
+
+.card:nth-child(1) {
+  left: calc(50% - 140px); 
+}
+
+.card:nth-child(2) {
+  left: calc(50% - 60px); 
+}
+
+.card:nth-child(3) {
+  left: calc(50% + 20px);
+}

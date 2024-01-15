@@ -9,30 +9,29 @@
     <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="diagonal-lines">
-        <div onclick="createGame()">
-            <div style="font-size: 32px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                JOGAR
+        <div id="buttons">
+            <div onclick="createGame()">
+                <div style="font-size: 32px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                    JOGAR
+                </div>
+            </div>
+            <div onclick="sayTruco()">
+                <div style="font-size: 32px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+                    PEDIR TRUCO!
+                </div>
             </div>
         </div>
-        <div onclick="sayTruco()">
-            <div style="font-size: 32px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-                PEDIR TRUCO!
-            </div>
-        </div>
-        <div class="container">
-            <div class="table">
-                <div class="player2">
-                    <div id="player2">
-                    </div>
-                </div>
-                <div class="player1">
-                    <div id="player1">
-                    </div>
-                </div>
-        </div>
-    </div>
-</body>
 
+        <div class="player2">
+            <div id="player2">
+            </div>
+        </div>
+        <div class="player1">
+            <div id="player1">
+            </div>
+        </div>
+</body>
 </html>

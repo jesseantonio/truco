@@ -20,10 +20,18 @@ const playGameButtonElem = document.getElementById('playGame')
 
 async function createGame() {
     let mode = prompt("Qual será seu modo de jogo? 1v1 ou 2v2?")
+    toggleVisibility()
     createPlayers(mode)
     createDeckAndShuffleAndDeal();
     game()
 }
+
+function toggleVisibility() {
+    var myDiv = document.getElementById('buttons');
+    debugger
+    myDiv.classList.toggle('hidden');
+}
+
 
 function createDeckAndShuffleAndDeal() {
     createDeck()
@@ -196,13 +204,13 @@ async function round() {
 
 
     createCards(player1, player2);
+    createCardAnimation();
     rounds.bo3.roundWinner = null;
     while (rounds.bo3.roundWinner === null) {
         if (i > 2) {
             players.filter(el => el.name === rounds.bo3.firstRoundWinner).map(player => player.points++);
             rounds.bo3.roundWinner = rounds.bo3.firstRoundWinner;
         } else {
-            debugger
             if (rounds.bo3.firstRoundWinner === null) {
                 if (rounds.amount % 2 === 0) {
                     alert('Vez do jogador 1')
@@ -281,7 +289,7 @@ function createCards(player1, player2) {
     removeCards();
     for (let j = 0; j < 3; j++) {
         let player1Card = document.createElement('div');
-        player1Card.setAttribute('class', `carta`);
+        player1Card.setAttribute('class', `card bottom`);
         player1Card.setAttribute('id', `${j}`)
         player1Card.onclick = function (item) {
             player1ChosenCard = {
@@ -292,7 +300,7 @@ function createCards(player1, player2) {
         }
 
         let player2Card = document.createElement('div');
-        player2Card.setAttribute('class', `other-cards`)
+        player2Card.setAttribute('class', `other-cards top`)
         player2Card.setAttribute('id', `${j}`)
         player2Card.onclick = function (item) {
             player2ChosenCard = {
@@ -413,6 +421,16 @@ function setCardBackground(player, index, playerCard) {
             playerCard.style.backgroundImage = "url('./assets/12demolis.png')";
         }
     }
+}
+
+function createCardAnimation() {
+    var cards = document.querySelectorAll('.card');
+    debugger
+    cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+            card.classList.toggle('animateCard');
+        });
+    });
 }
 
 async function game() {
@@ -540,7 +558,6 @@ function cardComparator(playerOneCard, playerTwoCard) {
 
 
 function sayTruco() {
-    debugger
     //rounds.truco.isTrucado = true;
     //rounds.truco.value = rounds.truco.value + 3;
 }
