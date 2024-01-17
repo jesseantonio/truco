@@ -28,7 +28,6 @@ async function createGame() {
 
 function toggleVisibility() {
     var myDiv = document.getElementById('buttons');
-    debugger
     myDiv.classList.toggle('hidden');
 }
 
@@ -107,9 +106,11 @@ function dealTheCards() {
 }
 
 function setJoker(lastCard) {
-    let jokerIndex = lastCard - 1;
+    debugger
+    const jokerIndex = lastCard - 1;
     let joker = deck[jokerIndex].number;
-
+    createJokerCard(deck[jokerIndex]);
+    
     if (joker === 7) {
         joker = 10;
     } else if (joker === 12) {
@@ -117,8 +118,23 @@ function setJoker(lastCard) {
     } else {
         joker = joker + 1;
     }
-
+    
     deck.filter(card => card.number === joker).map(card => card.isJoker = true)
+}
+
+function createJokerCard(joker) {
+    let card = document.createElement('div');
+    card.setAttribute('class', `other-cards back-card`);
+
+    let jokerDivCard = document.createElement('div');
+    jokerDivCard.setAttribute('class', `joker-card other-cards`);
+    jokerDivCard.setAttribute('id', `joker`);
+
+    document.getElementById(`joker-box`).appendChild(card);
+    document.getElementById(`joker-box`).appendChild(jokerDivCard);
+
+    const jokerCard = document.getElementById(`joker`);
+    setCardBackground(joker, null, jokerCard, true);
 }
 
 function createPlayers(mode) {
@@ -192,7 +208,7 @@ function removeCards() {
     while (player1.firstChild) {
         player1.removeChild(player1.lastChild);
     }
-    while (player2.firstChild) {
+        while (player2.firstChild) {
         player2.removeChild(player2.lastChild);
     }
 }
@@ -296,136 +312,138 @@ function createCards(player1, player2) {
                 id: item.target.id,
                 item: item.target
             }
-            //battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
         let player2Card = document.createElement('div');
-        player2Card.setAttribute('class', `other-cards top`)
+        player2Card.setAttribute('class', `other-cards top back-card player2`)
         player2Card.setAttribute('id', `${j}`)
         player2Card.onclick = function (item) {
             player2ChosenCard = {
                 id: item.target.id,
                 item: item.target
             }
-            //battle(player1ChosenCard, player2ChosenCard, item.currentTarget);
         }
 
-        setCardBackground(player1, j, player1Card);
-        setCardBackground(player2, j, player2Card);
+        setCardBackground(player1, j, player1Card, false);
+        setCardBackground(player2, j, player2Card, false);
 
         document.getElementById(`player1`).appendChild(player1Card);
         document.getElementById(`player2`).appendChild(player2Card);
     }
 }
 
-function setCardBackground(player, index, playerCard) {
-    let playerCardWithIndex = player.map(number => number)[0 + index];
+function setCardBackground(cards, index, playerCardDiv, isJoker) {
+    let playerCardWithIndex;
+    if (!isJoker) {
+        playerCardWithIndex = cards.map(number => number)[0 + index];
+    } else {
+        playerCardWithIndex = cards;
+    }
     if (playerCardWithIndex.number === 1) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/1depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/1depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/1decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/1decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/1demolis.png)";
+            playerCardDiv.style.backgroundImage = "url('./assets/1demolis.png)";
         }
     } else if (playerCardWithIndex.number === 2) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/2depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/2depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/2decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/2decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         }
     } else if (playerCardWithIndex.number === 3) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/3depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/3depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/3decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/3decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/3demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/3demolis.png')";
         }
     } else if (playerCardWithIndex.number === 4) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/4depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/4depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/4decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/4decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/4demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/4demolis.png')";
         }
     } else if (playerCardWithIndex.number === 5) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/5depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/5depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/5decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/5decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/5demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/5demolis.png')";
         }
     } else if (playerCardWithIndex.number === 6) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/6depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/6depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/6decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/6decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/6demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/6demolis.png')";
         }
     } else if (playerCardWithIndex.number === 7) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/7depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/7depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/7decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/7decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/7demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/7demolis.png')";
         }
     } else if (playerCardWithIndex.number === 10) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/10depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/10depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/10decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/10decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/10deespada.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/10deespada.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/10demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/10demolis.png')";
         }
     } else if (playerCardWithIndex.number === 11) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/11depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/11depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/11decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/11decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/11demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/11demolis.png')";
         }
     } else if (playerCardWithIndex.number === 12) {
         if (playerCardWithIndex.suit === "Clubs") {
-            playerCard.style.backgroundImage = "url('./assets/12depaus.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/12depaus.png')";
         } else if (playerCardWithIndex.suit === "Hearts") {
-            playerCard.style.backgroundImage = "url('./assets/12decopas.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/12decopas.png')";
         } else if (playerCardWithIndex.suit === "Spades") {
-            playerCard.style.backgroundImage = "url('./assets/verso3.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/verso3.png')";
         } else {
-            playerCard.style.backgroundImage = "url('./assets/12demolis.png')";
+            playerCardDiv.style.backgroundImage = "url('./assets/12demolis.png')";
         }
     }
 }
 
 function createCardAnimation() {
     var cards = document.querySelectorAll('.card');
-    debugger
     cards.forEach(function (card) {
         card.addEventListener('click', function () {
             card.classList.toggle('animateCard');
@@ -438,6 +456,7 @@ async function game() {
 
     async function playTurn() {
         if (!checkWinCondition()) {
+            createDeckAndShuffleAndDeal();
             await round();
             await playTurn();
         }
@@ -472,7 +491,6 @@ function cardStrengthComparator(playerOneCard, playerTwoCard) {
         }
     }
     rounds.cardThrows++
-    createDeckAndShuffleAndDeal();
 }
 
 

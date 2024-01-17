@@ -19,19 +19,37 @@ body {
   border-radius: 10px;
 }
 
-.other-cards {
+.back-card {
   background-image: url("./assets/verso3.png") !important;
+}
+
+.other-cards {
   height: 64px;
   width: 34px;
   background-size: cover;
   padding: 15px;
   box-sizing: content-box;
-  position: relative;
+  position: absolute;
   float: left;
   margin: 2px;
   margin-right: -20px;
   border-radius: 10px;
+  z-index: 1;
 }
+
+.joker-card {
+  transform: rotate(25deg);
+  left: 40px;
+  z-index: 0;
+}
+
+.joker {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 .card.bottom {
   bottom: 0;
@@ -84,4 +102,16 @@ body {
 
 .card:nth-child(3) {
   left: calc(50% + 20px);
+}
+
+.player2:nth-child(1) {
+  left: calc(50% - 100px); 
+}
+
+.player2:nth-child(2) {
+  left: calc(50% - 50px); 
+}
+
+.player2:nth-child(3) {
+  left: calc(50%);
 }
