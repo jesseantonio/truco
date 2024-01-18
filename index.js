@@ -110,7 +110,7 @@ function setJoker(lastCard) {
     const jokerIndex = lastCard - 1;
     let joker = deck[jokerIndex].number;
     createJokerCard(deck[jokerIndex]);
-    
+
     if (joker === 7) {
         joker = 10;
     } else if (joker === 12) {
@@ -118,7 +118,7 @@ function setJoker(lastCard) {
     } else {
         joker = joker + 1;
     }
-    
+
     deck.filter(card => card.number === joker).map(card => card.isJoker = true)
 }
 
@@ -208,7 +208,7 @@ function removeCards() {
     while (player1.firstChild) {
         player1.removeChild(player1.lastChild);
     }
-        while (player2.firstChild) {
+    while (player2.firstChild) {
         player2.removeChild(player2.lastChild);
     }
 }
@@ -475,17 +475,17 @@ async function game() {
 function cardStrengthComparator(playerOneCard, playerTwoCard) {
     if (!playerOneCard.isJoker && !playerTwoCard.isJoker) {
         if (playerOneCard.number != playerTwoCard.number) {
-            cardComparator(playerOneCard, playerTwoCard);
+            cardComparator(playerOneCard, playerTwoCard, false);
         } else {
             draw();
         }
     } else {
-        if (playerOneCard.isJoker && !playerTwoCard.isJoker) {
+        if (playerOneCard.isJoker && !playerTwoCard.isJoker) { 
             setRoundPoints(players[0], rounds)
         } else if (playerTwoCard.isJoker && !playerOneCard.isJoker) {
             setRoundPoints(players[1], rounds)
         } else if (playerOneCard.number != playerTwoCard.number) {
-            cardComparator(playerOneCard, playerTwoCard);
+            cardComparator(playerOneCard, playerTwoCard, false);
         } else {
             suitComparator(playerOneCard, playerTwoCard);
         }
@@ -504,74 +504,53 @@ function draw() {
     }
 }
 
-function suitComparator(playerOneCard, playerTwoCard) {
-    if (playerOneCard.suit === "Clubs") {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.suit === "Clubs") {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.suit === "Hearts") {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.suit === "Hearts") {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.suit === "Spades") {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.suit === "Spades") {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.suit === "Diamonds") {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.suit === "Diamonds") {
-        setRoundPoints(players[1], rounds);
+function cardComparator(playerCard, isInformational) {
+    const cardToPlayerMap = {
+        3: "Player 1",
+        2: "Player 1",
+        1: "Player 1",
+        12: "Player 1",
+        11: "Player 1",
+        10: "Player 1",
+        7: "Player 1",
+        6: "Player 1",
+        5: "Player 1",
+        4: "Player 1",
+    };
+
+    const player = cardToPlayerMap[playerCard.number] || "Player 2";
+
+    handleCardResult(isInformational, player);
+}
+
+function handleCardResult(isInformational, player) {
+    getCard(isInformational, player);
+    setRoundPoints(players[player === "Player 1" ? 0 : 1], rounds);
+}
+
+function getCard(isInformational, player) {
+    if (isInformational) {
+        return player;
     }
 }
 
-function cardComparator(playerOneCard, playerTwoCard) {
-    if (playerOneCard.number === 3) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 3) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 2) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 2) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 1) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 1) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 1) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 1) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 12) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 12) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 12) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 11) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 11) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 10) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 10) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 7) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 7) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 6) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 6) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 5) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 5) {
-        setRoundPoints(players[0], rounds);
-    } else if (playerTwoCard.number === 4) {
-        setRoundPoints(players[1], rounds);
-    } else if (playerOneCard.number === 4) {
-        setRoundPoints(players[0], rounds);
-    }
+function cardComparator(playerOneCard, playerTwoCard, isInformational) {
+    const cardToPlayerMap = {
+        3: "Player 1",
+        2: "Player 1",
+        1: "Player 1",
+        12: "Player 1",
+        11: "Player 1",
+        10: "Player 1",
+        7: "Player 1",
+        6: "Player 1",
+        5: "Player 1",
+        4: "Player 1",
+    };
+
+    const player = cardToPlayerMap[playerOneCard.number] || "Player 2";
+
+    handleCardResult(isInformational, player);
 }
 
 
@@ -582,4 +561,72 @@ function sayTruco() {
 
 function escape() {
     // impl
+}
+
+function botHelper(cards) {
+    const { cardClassification, cardClassificationCounter } = setCardClassification(cards);
+    const cardHandClassification = setCardHandClassification(cardClassificationCounter);
+    return cardHandClassification;
+}
+
+function setCardHandClassification(cardClassification) {
+    const BEST = "BEST";
+    const AVERAGE = "AVERAGE";
+    const BAD = "BAD";
+    switch (cardClassification) {
+        case cardClassification.best >= 2:
+            return BEST;
+        case cardClassification.best == 1 && cardClassification.average == 2:
+            return BEST;
+        case cardClassification.average >= 2:
+            return AVERAGE;
+        // case cardClassification.average == 2 && cardClassification.bad == 1:
+        //     return AVERAGE;
+        case cardClassification.best == 1 && cardClassification.average == 1 && cardClassification.bad == 1:
+            return AVERAGE; '';
+        case cardClassification.bad >= 2:
+            return BAD;
+        default:
+            return BAD;
+    }
+}
+
+function setCardClassification(cards) {
+    const bestCards = [3, 2, 1];
+    const averageCards = [12, 11, 10];
+    const BEST = "BEST";
+    const AVERAGE = "AVERAGE";
+    const BAD = "BAD";
+    let cardClassificationMap = new Map;
+    let cardClassificationCounter = new Object;
+    cardClassificationCounter.best = 0;
+    cardClassificationCounter.average = 0;
+    cardClassificationCounter.bad = 0;
+    cards.forEach(card => {
+        if (card.isJoker) {
+            cardClassificationMap.set(card, BEST);
+            cardClassificationMap.best++;
+        } else if (bestCards.includes(card.number)) {
+            cardClassificationMap.set(card, BEST);
+            cardClassificationMap.best++;
+        } else if (averageCards.includes(card.number)) {
+            cardClassificationMap.set(card, AVERAGE);
+            cardClassificationMap.average++;
+        } else {
+            cardClassificationMap.set(card, BAD);
+            cardClassificationMap.bad++;
+        }
+    });
+
+    return { cardClassificationMap, cardClassificationCounter };
+}
+
+function botIntelligence(cards) {
+    if (rounds.bo3.firstRoundWinner == null) {
+        if (player1ChosenCard == null) {
+
+        } else {
+
+        }
+    }
 }
